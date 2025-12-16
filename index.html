@@ -9,24 +9,16 @@
 
 <!-- ================= GOOGLE FONTS ================= -->
 <!-- ΑΛΛΑΖΕΙΣ ΜΟΝΟ ΑΥΤΟ ΤΟ LINK -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?
-family=Theano+Didot&
-family=Cormorant+Garamond:wght@400;500;600;700&
-family=Libre+Baskerville:wght@400;700&
-family=GFS+Didot&
-family=GFS+Bodoni&
-family=Lora:wght@400;500;600&
-family=Crimson+Pro:wght@400;500;600;700&
-display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&display=swap&subset=latin,greek" rel="stylesheet">
 
 <style>
 
 /* ================= FONT VARIABLES ================= */
 :root {
-  --brand-font: 'Theano Didot', serif;
-  --text-font: 'Theano Didot', serif;
+  --brand-font: 'Noto Sans', system-ui;
+  --text-font: 'Noto Sans', system-ui;
 }
+
 /* ================= THEME ================= */
 :root {
   --bg:#111;
@@ -73,6 +65,11 @@ body {
     padding:20px;
   }
 }
+html, body {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
 
 /* ================= HEADER ================= */
 header {
@@ -87,31 +84,91 @@ header {
 }
 
 /* ================= CONTROLS ================= */
-.controls{
+.lang-switch{
   display:flex;
-  justify-content:center;
-  gap:10px;
+  justify-content:space-between;
+  width:100%;
   margin-bottom:18px;
 }
 
-.controls button{
-  background:none;
-  border:1px solid #999;
-  border-radius: 10px;
-  padding:4px 14px;
-  font-family:var(--brand-font);
-  font-size:14px;
+.lang-pill{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 14px;
+  border-radius:30px;
+  background: var(--card);
   cursor:pointer;
-  opacity:0.6;
+  opacity:0.25;
+  transition:0.2s;
 }
 
-.controls button.active{
-  background:#111;
-  color:#fff;
+.lang-pill.active{
   opacity:1;
-  border-color:#111;
 }
 
+.lang-pill .label{
+  font-size:16px;
+  font-weight:500;
+  color:#444;
+}
+
+.flag{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background-size:cover;
+  background-position:center;
+}
+
+.gr-flag{
+  background-image:url('https://flagcdn.com/w40/gr.png');
+}
+
+.en-flag{
+  background-image:url('https://flagcdn.com/w40/gb.png');
+}
+
+.mode-pill{
+  display:flex;
+  padding:8px 14px;
+  border-radius:30px;
+  background: var(--card);
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.mode-pill .moon{
+  font-size:20px;
+  opacity:0.5;
+  transition:0.2s;
+  
+}
+
+body:not(.light) .mode-pill .moon{
+  opacity:1;
+}
+
+body.light .mode-pill .moon{
+  opacity:0.35;
+}
+.controls{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:center;
+  width:100%;
+  margin-bottom:18px;
+}
+
+#btn-gr{
+  justify-self:start;
+  margin-left:4px;
+}
+
+#btn-en{
+  justify-self:end;
+  margin-right:4px;
+}
 
 /* ================= SECTIONS ================= */
 .section {
@@ -125,9 +182,10 @@ header {
 .section-header {
   padding: 14px;
   font-family: var(--brand-font);
-  font-size: 24px;
+  font-size: 28px;
   letter-spacing: 1px;
   cursor: pointer;
+  text-align:center;
 }
 
 .section-content {
@@ -143,11 +201,6 @@ header {
   font-size: 20px;
 }
 
-.en {
-  display: none;
-  font-size: 18px;
-  opacity: 0.7;
-}
 
 .price {
   margin-left: 15px;
@@ -161,6 +214,10 @@ header {
   text-align: center;
 }
 
+.en { display: none;  }
+.gr { display: block;}
+
+
 </style>
 </head>
 
@@ -172,149 +229,145 @@ header {
 </header>
 
 <div class="controls">
-  <button id="btn-gr" onclick="setLang('gr')">GR</button>
-  <button id="btn-en" onclick="setLang('en')">EN</button>
-  <button onclick="toggleMode()">☀ / 🌙</button>
-</div>
+    <div id="btn-gr" class="lang-pill" onclick="setLang('gr')">
+      <span class="flag gr-flag"></span>
+      <span class="label">GR</span>
+    </div>
+    <div id="mode-switch" class="mode-pill" onclick="toggleMode()">
+      <span class="icon moon">🌗</span>
+    </div>
 
+
+    <div id="btn-en" class="lang-pill" onclick="setLang('en')">
+      <span class="flag en-flag"></span>
+      <span class="label">EN</span>
+    </div>
+  </div>
+</div>
 
 <!-- ΟΡΕΚΤΙΚΑ -->
 <div class="section">
-  <div class="section-header">Ορεκτικά</div>
+  <div class="section-header"><div class="gr">Ορεκτικά </div><div class="en">Starters</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Ψωμί<div class="en">Bread</div></div><div class="price">1,00 €</div></div>
-    <div class="item"><div>Φέτα<div class="en">Feta</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Γαλοτύρι<div class="en">Galotyri</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τυροσαλάτα<div class="en">Cheese salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μελιτζανοσαλάτα<div class="en">Eggplant salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τζατζίκι<div class="en">Tzatziki</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Σαγανάκι<div class="en">Fried cheese</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τυροκαυτερή<div class="en">Tyrokafteri</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Πατάτες τηγανιτές<div class="en">French fries</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Πιπεριές τηγανιτές<div class="en">Fried peppers</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μπουγιουρντί<div class="en">Bougiournti</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Ψωμί</div><div class="en">Bread</div></div><div class="price">1,00 €</div></div>
+    <div class="item"><div><div class="gr">Φέτα</div><div class="en">Feta</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Γαλοτύρι</div><div class="en">Galotyri</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τυροσαλάτα</div><div class="en">Cheese salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μελιτζανοσαλάτα</div><div class="en">Eggplant salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τζατζίκι</div><div class="en">Tzatziki</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Σαγανάκι</div><div class="en">Fried cheese</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τυροκαυτερή</div><div class="en">Tyrokafteri</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Πατάτες τηγανιτές</div><div class="en">French fries</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Πιπεριές τηγανιτές</div><div class="en">Fried peppers</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μπουγιουρντί</div><div class="en">Bougiournti</div></div><div class="price">— €</div></div>
   </div>
 </div>
 
 <!-- ΣΑΛΑΤΕΣ -->
 <div class="section">
-  <div class="section-header">Σαλάτες</div>
+  <div class="section-header"><div class="gr">Σαλάτες</div><div class="en">Salads</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Χωριάτικη<div class="en">Greek salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Ανάμεικτη<div class="en">Mixed salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μαρούλι<div class="en">Lettuce salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Χόρτα εποχής<div class="en">Greens</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Αγγουροντομάτα<div class="en">Tomato salad</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Λάχανο - Καρότο<div class="en">Cabbage & carrot</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Χωριάτικη</div><div class="en">Greek salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Ανάμεικτη</div><div class="en">Mixed salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μαρούλι</div><div class="en">Lettuce salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Χόρτα εποχής</div><div class="en">Greens</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Αγγουροντομάτα</div><div class="en">Tomato salad</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Λάχανο - Καρότο</div><div class="en">Cabbage &amp; carrot</div></div><div class="price">— €</div></div>
   </div>
 </div>
 
 <!-- ΠΑΡΑΔΟΣΙΑΚΕΣ ΠΙΤΕΣ -->
 <div class="section">
-  <div class="section-header">Παραδοσιακές Πίτες</div>
+  <div class="section-header"><div class="gr">Παραδοσιακές Πίτες</div><div class="en">Traditional pies</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Χορτόπιτα<div class="en">Vegetarian pie</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τυρόπιτα<div class="en">Cheese pie</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μπατσαριά<div class="en">Batsaria</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μανιταρόπιτα<div class="en">Mushroom pie</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Χορτόπιτα</div><div class="en">Vegetarian pie</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τυρόπιτα</div><div class="en">Cheese pie</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μπατσαριά</div><div class="en">Batsaria</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μανιταρόπιτα</div><div class="en">Mushroom pie</div></div><div class="price">— €</div></div>
   </div>
 </div>
 
 <!-- ΜΑΓΕΙΡΕΥΤΑ -->
 <div class="section">
-  <div class="section-header">Μαγειρευτά</div>
+  <div class="section-header"><div class="gr">Μαγειρευτά</div><div class="en">Cooked dishes</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Κατσίκι γάστρας<div class="en">Roasted goat</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μοσχάρι κοκκινιστό<div class="en">Braised beef</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Γίδα βραστή<div class="en">Boiled goat</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Γίγαντες με χόρτα<div class="en">Roasted giant beans</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Γεμιστά<div class="en">Stuffed peppers</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Φασολάδα<div class="en">Bean soup</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Αγριογούρουνο στιφάδο<div class="en">Wild boar stew</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Κατσίκι γάστρας</div><div class="en">Roasted goat</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μοσχάρι κοκκινιστό</div><div class="en">Braised beef</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Γίδα βραστή</div><div class="en">Boiled goat</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Γίγαντες με χόρτα</div><div class="en">Roasted giant beans</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Γεμιστά</div><div class="en">Stuffed peppers</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Φασολάδα</div><div class="en">Bean soup</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Αγριογούρουνο στιφάδο</div><div class="en">Wild boar stew</div></div><div class="price">— €</div></div>
   </div>
 </div>
 
 <!-- ΣΤΟ ΤΗΓΑΝΙ -->
 <div class="section">
-  <div class="section-header">Στο Τηγάνι</div>
+  <div class="section-header"><div class="gr">Στο Τηγάνι</div><div class="en">Pan‑fried</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Κεφτεδάκια<div class="en">Fried meatballs</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τηγανιά Χοιρινή<div class="en">Fried pork</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τηγανιά Κοτόπουλο<div class="en">Fried chicken</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Κεφτεδάκια</div><div class="en">Fried meatballs</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τηγανιά Χοιρινή</div><div class="en">Fried pork</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τηγανιά Κοτόπουλο</div><div class="en">Fried chicken</div></div><div class="price">— €</div></div>
   </div>
 </div>
 
 <!-- ΤΗΣ ΩΡΑΣ -->
 <div class="section">
-  <div class="section-header">Της Ώρας</div>
+  <div class="section-header"><div class="gr">Της Ώρας</div><div class="en">From the Grill</div></div>
   <div class="section-content">
-
-    <div class="item"><div>Παϊδάκια αρνί<div class="en">Lamb chops</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Παϊδάκια πρόβειο<div class="en">Mutton chops</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μπριζόλα Χοιρινή<div class="en">Pork steak</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μπριζόλα Μοσχαρίσια<div class="en">Beef steak</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Πανσέτα<div class="en">Bacon</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Λουκάνικο Χωριάτικο<div class="en">Country sausage</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Φιλέτο Κοτόπουλο<div class="en">Grilled chicken</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Μπιφτέκι Μοσχαρίσιο<div class="en">Beef burger</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Κοντοσούβλι Χοιρινό<div class="en">Pork skewer</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Κοντοσούβλι Κοτόπουλο<div class="en">Chicken skewer</div></div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Παϊδάκια αρνί</div><div class="en">Lamb chops</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Παϊδάκια πρόβειο</div><div class="en">Mutton chops</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μπριζόλα Χοιρινή</div><div class="en">Pork steak</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μπριζόλα Μοσχαρίσια</div><div class="en">Beef steak</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Πανσέτα</div><div class="en">Bacon</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Λουκάνικο Χωριάτικο</div><div class="en">Country sausage</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Φιλέτο Κοτόπουλο</div><div class="en">Grilled chicken</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Μπιφτέκι Μοσχαρίσιο</div><div class="en">Beef burger</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Κοντοσούβλι Χοιρινό</div><div class="en">Pork skewer</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Κοντοσούβλι Κοτόπουλο</div><div class="en">Chicken skewer</div></div><div class="price">— €</div></div>
   </div>
 </div>
+
 <!-- ΠΟΤΑ -->
-
 <div class="section">
-  <div class="section-header">Ποτά</div>
+  <div class="section-header"><div class="gr">Ποτά</div><div class="en">Drinks</div></div>
   <div class="section-content">
+    <div class="item"><div><div class="gr">Κρασί λευκό ξηρό</div><div class="en">White wine</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Κρασί κόκκινο ξηρό</div><div class="en">Red wine</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Κρασί κόκκινο ημίγλυκο</div><div class="en">Red sweet wine</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Τσίπουρο 100ml</div><div class="en">Tsipouro</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Ούζο 50ml</div><div class="en">Ouzo</div></div><div class="price">— €</div></div>
 
-    <div class="item"><div>Κρασί λευκό ξηρό<div class="en">White wine</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Κρασί κόκκινο ξηρό<div class="en">Red wine</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Κρασί κόκκινο ημίγλυκο<div class="en">Red sweet wine</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Τσίπουρο 100ml<div class="en">Tsipouro</div></div><div class="price">— €</div></div>
-    <div class="item"><div>Ούζο 50ml<div class="en">Ouzo</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Alfa</div><div class="en">Alfa</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Kaizer</div><div class="en">Kaizer</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Amstel</div><div class="en">Amstel</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Bergina</div><div class="en">Bergina</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Fix 0%</div><div class="en">Fix 0%</div></div><div class="price">— €</div></div>
 
-    <div class="item"> <div>Alfa</div><div class="price">— €</div></div>
-    <div class="item"> <div>Kaizer</div><div class="price">— €</div></div>
-    <div class="item"> <div>Amstel</div><div class="price">— €</div></div>
-    <div class="item"> <div>Bergina</div><div class="price">— €</div></div>
-    <div class="item"> <div>Fix 0%</div><div class="price">— €</div></div>
-
-    <div class="item"> <div>Coca Cola / Zero</div><div class="price">— €</div></div>
-    <div class="item"> <div>Λεμονάδα</div><div class="price">— €</div></div>
-    <div class="item"> <div>Πορτοκαλάδα</div><div class="price">— €</div></div>
-    <div class="item"> <div>Σόδα</div><div class="price">— €</div></div>
-    <div class="item"> <div>Ανθρακούχο νερό</div><div class="price">— €</div></div>
-
+    <div class="item"><div><div class="gr">Coca Cola / Zero</div><div class="en">Coca Cola / Zero</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Λεμονάδα</div><div class="en">Lemonade</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Πορτοκαλάδα</div><div class="en">Orange soda</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Σόδα</div><div class="en">Soda</div></div><div class="price">— €</div></div>
+    <div class="item"><div><div class="gr">Ανθρακούχο νερό</div><div class="en">Sparkling water</div></div><div class="price">— €</div></div>
   </div>
 </div>
-
-
 
 <script>
 /* LANGUAGE */
+
 function setLang(lang){
 
-  // Εμφάνιση / απόκρυψη αγγλικών
+  document.querySelectorAll('.gr').forEach(el => {
+    el.style.display = (lang === 'gr') ? 'block' : 'none';
+  });
+
   document.querySelectorAll('.en').forEach(el => {
     el.style.display = (lang === 'en') ? 'block' : 'none';
   });
 
-  // Ενεργό κουμπί
   document.getElementById('btn-gr').classList.toggle('active', lang === 'gr');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
-  // Αποθήκευση επιλογής
   localStorage.setItem('menu-lang', lang);
 }
 
@@ -330,7 +383,6 @@ document.querySelectorAll('.section-header').forEach(h=>{
   }
 });
 
-/* DARK / LIGHT (αν το κρατήσεις) */
 function toggleMode(){
   document.body.classList.toggle('light');
   localStorage.setItem(
@@ -338,9 +390,11 @@ function toggleMode(){
     document.body.classList.contains('light') ? 'light' : 'dark'
   );
 }
+
 if(localStorage.getItem('mode') === 'light'){
   document.body.classList.add('light');
 }
+
 </script>
 
 </body>
