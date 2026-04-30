@@ -1,0 +1,31 @@
+{
+  "name": "Ταβέρνα Καραβασίλη — Menu",
+  "short_name": "Καραβασίλη",
+  "description": "Παραδοσιακή κουζίνα — Menu",
+  "start_url": "./Menu.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3ec",
+  "theme_color": "#a8593a",
+  "lang": "el",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
