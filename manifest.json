@@ -2,7 +2,7 @@
   "name": "Ταβέρνα Καραβασίλη — Menu",
   "short_name": "Καραβασίλη",
   "description": "Παραδοσιακή κουζίνα — Menu",
-  "start_url": "./Menu.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

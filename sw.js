@@ -1,8 +1,8 @@
 // Service worker — cache-first for static menu assets
-const CACHE = 'tk-menu-v1';
+const CACHE = 'tk-menu-v2';
 const ASSETS = [
   './',
-  './Menu.html',
+  './index.html',
   './logo.png',
   './favicon.png',
   './Adore.ttf',
